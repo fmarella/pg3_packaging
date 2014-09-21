@@ -1,0 +1,2 @@
+?package(promogest):needs="X11" section="Applications/Office"\
+  title="promogest" command="/usr/bin/pg-wrapper"

@@ -1,0 +1,19 @@
+Source: promogest
+Section: misc
+Priority: extra
+Maintainer: Francesco Marella <francesco.marella@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.9.1
+Homepage: http://www.promogest.me
+
+Package: promogest
+Architecture: all
+Depends: python-jinja2, python-svn, subversion, python-sqlalchemy, python-reportlab, python-html5lib, python-webkit, python-pisa, python-matplotlib, python-poppler, ${misc:Depends}
+Description: Gestionale Open Source per la PMI
+ PromoGest è un programma di gestione per la vostra attività
+ sviluppato da PromoTUX. Rilasciato secondo la licenza GPL.
+ La versione Standard è liberamente utilizzabile senza vincoli di licenza e
+ gestisce egregiamente le anagrafiche cliente, fornitore e tutta la 
+ generazione dei documenti e dei movimenti. Per funzionalità specifiche o per
+ la personalizzazione del modello di stampa, sarà necessaria l'attivazione
+ di moduli specifici. Scopri tutte le caratteristiche di PromoGest!

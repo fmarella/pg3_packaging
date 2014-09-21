@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Copyright (c) 2011-2014 Francesco Marella <fmarella@gmx.com>. All rights reserved.
+# Use of this source code is governed by GPL v3 license that can be
+# found in the COPYING file.
+
+WORKDIR="$HOME/pg3/core"
+
+if [ ! -d "$HOME/pg3" ];
+then
+    cd $HOME
+    svn co http://promogest.googlecode.com/svn/trunk pg3 | zenity --progress --pulsate --text="Attendere scaricamento sorgenti in corso..." --no-cancel
+fi
+
+cd $WORKDIR
+exec python "$WORKDIR/promogest.py" "$@"
