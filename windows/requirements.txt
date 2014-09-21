@@ -1,0 +1,5 @@
+sqlalchemy
+jinja2
+xhtml2pdf
+pillow
+reportlab==2.7

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=PromoGest
+Exec=pg-wrapper
+Terminal=false
+Icon=promogest
+Type=Application
+Categories=Application;Office;
+X-MultipleArgs=false
