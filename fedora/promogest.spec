@@ -1,6 +1,6 @@
 Name:		promogest
-Version:	2.9
-Release:	2%{?dist}
+Version:	3.0
+Release:	0%{?dist}
 Summary:	Erp and managerial program for small and medium enterprises
 
 License:	GPLv2
@@ -10,15 +10,18 @@ Source:		%{name}-%{version}.tar.xz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildArch:	noarch
 Requires:	python-setuptools
-Requires:	pygtk2 >= 2.18
+Requires:	pygobject3-base
 Requires:	subversion
 Requires:	pysvn
 Requires:	python-sqlalchemy
 Requires:	python-reportlab
-Requires:	python-imaging
+Requires:	python-pillow
 Requires:	python-jinja2
-Requires:	pywebkitgtk
-Requires:	pypoppler
+Requires:	webkitgtk3
+Requires:	poppler-glib
+Requires:   python-xhtml2pdf
+Requires:   python-alembic
+Requires:   python-psycopg2
 
 %description
 PromoGest è un programma di gestione per la vostra attività commerciale.
