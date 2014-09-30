@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# Copyright (c) 2011 Francesco Marella <francesco.marella@gmail.com>. All rights reserved.
+# Copyright (c) 2011-2014 Francesco Marella <fmarella@gmx.com>. All rights reserved.
 # Use of this source code is governed by GPL v3 license that can be
 # found in the COPYING file.
 
-WORKDIR="$HOME/pg2/core"
+WORKDIR="$HOME/pg3/core"
 
-if [ ! -d "$HOME/pg2" ];
+if [ ! -d "$HOME/pg3" ];
 then
     cd $HOME
-    svn co http://svn.promotux.it/svn/promogest2/trunk pg2 | zenity --progress --pulsate --text="Attendere scaricamento sorgenti in corso..." --no-cancel
+    svn co http://promogest.googlecode.com/svn/trunk pg3 | zenity --progress --pulsate --text="Attendere scaricamento sorgenti in corso..." --no-cancel
 fi
 
 cd $WORKDIR
