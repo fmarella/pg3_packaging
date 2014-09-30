@@ -55,7 +55,7 @@ Var StartMenuFolder
 !insertmacro MUI_LANGUAGE Italian
 
 # Installer attributes
-OutFile PromoGest-3.0_beta_setup.exe
+OutFile PromoGest-3.0_setup.exe
 InstallDir "$APPDATA\pg3"
 CRCCheck on
 XPStyle on
@@ -106,7 +106,7 @@ SectionEnd
 Section PyGI SEC0000
     SetOutPath C:\Python27\Lib\site-packages
     SetOverwrite on
-    File /r D:\Promogest\py2.7-gtk3\*
+    File /r D:\windows\py2.7-gtk3\*
 SectionEnd
 
 Section Tools SEC0006
@@ -123,6 +123,8 @@ Section Tools SEC0006
     ExecWait 'C:\Python27\python.exe "$INSTDIR\inst\distribute_setup.py"'
     File get-pip.py
     ExecWait 'C:\Python27\python.exe "$INSTDIR\inst\get-pip.py"'
+    File ez_setup.py
+    ExecWait 'C:\Python27\python.exe "$INSTDIR\inst\ez_setup.py"'
     ;File requirements.txt
 ;    ExecWait 'C:\Python27\Scripts\pip.exe install -r "$INSTDIR\inst\requirements.txt"'
     ExecWait "c:\Python27\Scripts\pip.exe install pillow"
@@ -130,6 +132,8 @@ Section Tools SEC0006
     ExecWait "c:\Python27\Scripts\pip.exe install sqlalchemy"
     ExecWait "c:\Python27\Scripts\pip.exe install reportlab"
     ExecWait "c:\Python27\Scripts\pip.exe install xhtml2pdf"
+    ExecWait "c:\Python27\Scripts\pip.exe install html5lib"
+    ExecWait "c:\Python27\Scripts\pip.exe install six"
     WriteRegStr HKCU "${REGKEY}\Components" Tools 1
 SectionEnd
 
@@ -156,9 +160,17 @@ SectionEnd
 Section psycopg2 SEC0003
     SetOutPath $INSTDIR\inst
     SetOverwrite on
-    File psycopg2-2.5.2.win32-py2.7-pg9.2.6-release.exe
-    ExecWait "$INSTDIR\inst\psycopg2-2.5.2.win32-py2.7-pg9.2.6-release.exe"
+    File psycopg2-2.5.4.win32-py2.7-pg9.3.5-release.exe
+    ExecWait "$INSTDIR\inst\psycopg2-2.5.4.win32-py2.7-pg9.3.5-release.exe"
     WriteRegStr HKCU "${REGKEY}\Components" psycopg2 1
+SectionEnd
+
+Section TortoiseSVN SEC0015
+    SetOutPath $INSTDIR\inst
+    SetOverwrite on
+    File TortoiseSVN-1.8.8.25755-win32-svn-1.8.10.msi
+    ExecWait "$INSTDIR\inst\TortoiseSVN-1.8.8.25755-win32-svn-1.8.10.msi"
+    WriteRegStr HKCU "${REGKEY}\Components" TortoiseSVN 1
 SectionEnd
 
 Section PromoGest SEC00010
@@ -223,11 +235,14 @@ done${UNSECTION_ID}:
 Section /o -un.Tools UNSEC0009
     Delete /REBOOTOK $INSTDIR\inst\get-pip.py
     Delete /REBOOTOK $INSTDIR\inst\distribute_setup.py
+    Delete /REBOOTOK $INSTDIR\inst\ez_setup.py
     ExecWait "c:\Python27\Scripts\pip.exe uninstall -y Jinja2"
     ExecWait "c:\Python27\Scripts\pip.exe uninstall -y pillow"
     ExecWait "c:\Python27\Scripts\pip.exe uninstall -y sqlalchemy"
     ExecWait "c:\Python27\Scripts\pip.exe uninstall -y reportlab"
     ExecWait "c:\Python27\Scripts\pip.exe uninstall -y xhtml2pdf"
+    ExecWait "c:\Python27\Scripts\pip.exe uninstall -y six"
+    ExecWait "c:\Python27\Scripts\pip.exe uninstall -y html5lib"
 SectionEnd
 
 Section /o -un.PromoGest UNSEC0008
@@ -240,7 +255,7 @@ Section /o -un.PromoGest UNSEC0008
 SectionEnd
 
 Section /o -un.psycopg2 UNSEC00013
-    Delete /REBOOTOK $INSTDIR\inst\psycopg2-2.5.2.win32-py2.7-pg9.2.6-release.exe
+    Delete /REBOOTOK $INSTDIR\inst\psycopg2-2.5.4.win32-py2.7-pg9.3.5-release.exe
     DeleteRegValue HKCU "${REGKEY}\Components" psycopg2
     Push $R0
     ReadRegStr $R0 HKCU "SOFTWARE\Python\PythonCore\2.7\InstallPath" ""
@@ -283,6 +298,12 @@ Section /o -un.Python UNSEC0001
     ExecWait '"msiexec" /passive /uninstall "$INSTDIR\inst\python-2.7.6.msi"'
 SectionEnd
 
+Section /o -un.TortoiseSVN UNSEC0015
+	Delete /REBOOTOK $INSTDIR\python-2.7.6.msi
+    DeleteRegValue HKCU "${REGKEY}\Components" TortoiseSVN
+    ExecWait '"msiexec" /passive /uninstall "$INSTDIR\inst\TortoiseSVN-1.8.8.25755-win32-svn-1.8.10.msi"'
+SectionEnd
+
 Section /o -un.Gtk+ UNSEC0000
 SectionEnd
 
@@ -306,6 +327,7 @@ Function un.onInit
     !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
     !insertmacro SELECT_UNSECTION "PyGI" ${UNSEC0000}
     !insertmacro SELECT_UNSECTION Python         ${UNSEC0001}
+    !insertmacro SELECT_UNSECTION TortoiseSVN    ${UNSEC0015}
     !insertmacro SELECT_UNSECTION PySVN          ${UNSEC0006}
     !insertmacro SELECT_UNSECTION Promogest      ${UNSEC0008}
     !insertmacro SELECT_UNSECTION Tools          ${UNSEC0009}
@@ -323,6 +345,6 @@ FunctionEnd
 ;!insertmacro MUI_DESCRIPTION_TEXT ${SEC0005} $(SEC0005_DESC)
 !insertmacro MUI_DESCRIPTION_TEXT ${SEC0006} $(SEC0006_DESC)
 !insertmacro MUI_DESCRIPTION_TEXT ${SEC0007} $(SEC0007_DESC)
-;!insertmacro MUI_DESCRIPTION_TEXT ${SEC0008} $(SEC0008_DESC)
+!insertmacro MUI_DESCRIPTION_TEXT ${SEC0015} $(SEC0015_DESC)
 !insertmacro MUI_DESCRIPTION_TEXT ${SEC0008} $(SEC0009_DESC)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
