@@ -22,6 +22,7 @@ Requires:	poppler-glib
 Requires:	python-xhtml2pdf
 Requires:	python-alembic
 Requires:	python-psycopg2
+Requires:	python-html5lib
 Requires:	zenity
 
 %description
@@ -39,27 +40,28 @@ mkdir -p $RPM_BUILD_ROOT/%{_datadir}/pixmaps
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/applications
 mkdir -p ${RPM_BUILD_ROOT}/usr/bin
 #install -m 644 COPYING $RPM_BUILD_ROOT/%{_datadir}/promogest2/.
-install -m 755 pg-launcher $RPM_BUILD_ROOT/%{_bindir}/pg-launcher
+install -m 755 pg-wrapper $RPM_BUILD_ROOT/%{_bindir}/pg-wrapper
 install -m 644 promogest.png $RPM_BUILD_ROOT/%{_datadir}/pixmaps/.
 install -m 644 promogest.desktop $RPM_BUILD_ROOT/%{_datadir}/applications/.
 #%{__rm} $RPM_BUILD_ROOT/%{_datadir}/promogest2/COPYING
 
 %post
-/usr/bin/easy_install -U html5lib
 /usr/bin/easy_install -U pisa
-/usr/bin/easy_install -U xhtml2pdf
 
 %clean
 %{__rm} -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, root, -)
-%attr(755,root,root) %{_bindir}/pg-launcher
+%attr(755,root,root) %{_bindir}/pg-wrapper
 %doc README COPYING
 %{_datadir}/applications/*
 %{_datadir}/pixmaps/*
 
 %changelog
+* Tue Sep 30 2014 Francesco Marella <fmarella@buzz> - 3.0-1
+- New package for Promogest 3.0
+
 * Mon Nov 21 2011 Francesco Marella <fmarl@besixdouze> - 2.9-2
 - Add easy_install xhtml2pdf
 
