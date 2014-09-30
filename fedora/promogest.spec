@@ -19,9 +19,10 @@ Requires:	python-pillow
 Requires:	python-jinja2
 Requires:	webkitgtk3
 Requires:	poppler-glib
-Requires:   python-xhtml2pdf
-Requires:   python-alembic
-Requires:   python-psycopg2
+Requires:	python-xhtml2pdf
+Requires:	python-alembic
+Requires:	python-psycopg2
+Requires:	zenity
 
 %description
 PromoGest è un programma di gestione per la vostra attività commerciale.
