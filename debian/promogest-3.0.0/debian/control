@@ -3,12 +3,12 @@ Section: misc
 Priority: extra
 Maintainer: Francesco Marella <francesco.marella@gmail.com>
 Build-Depends: debhelper (>= 7.0.50~)
-Standards-Version: 3.9.1
+Standards-Version: 3.9.5
 Homepage: http://www.promogest.me
 
 Package: promogest
 Architecture: all
-Depends: python-jinja2, python-svn, subversion, python-sqlalchemy, python-reportlab, python-html5lib, python-webkit, python-pisa, python-matplotlib, python-poppler, ${misc:Depends}
+Depends: python-jinja2, python-svn, subversion, python-sqlalchemy, python-reportlab, python-html5lib, python-gi, python-pisa, python-matplotlib, gir1.2-gtk-3.0, gir1.2-webkit-3.0, gir1.2-poppler-0.18, alembic, python-psycopg2, python-pisa, python-imaging, ${misc:Depends}
 Description: Gestionale Open Source per la PMI
  PromoGest è un programma di gestione per la vostra attività
  sviluppato da PromoTUX. Rilasciato secondo la licenza GPL.
